@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Photos",
-    "slug": "Photos",
+    "name": "google-photos",
+    "slug": "google-photos",
     "version": "1.0.0",
 
-    "scheme": "Photos",
+    "scheme": "google-photos",
     "web": {
       "bundler": "metro",
       "output": "static",
