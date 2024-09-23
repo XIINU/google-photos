@@ -1,44 +1,23 @@
 import { Stack } from 'expo-router';
-import { StyleSheet, View, Text, FlatList, Image } from 'react-native';
-import * as MediaLibrary from 'expo-media-library';
-import { useEffect, useState } from 'react';
-// import { Image } from 'expo-image';
+import { StyleSheet, FlatList, Image } from 'react-native';
+import { useMedia } from '~/providers/MediaProvider';
 
 export default function Home() {
-  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-  const [localAssets, setLocalAssets] = useState<MediaLibrary.Asset[]>([]);
-
-  useEffect(() => {
-    if (permissionResponse?.status !== 'granted') {
-      requestPermission();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (permissionResponse?.status === 'granted') {
-      loadLocalAssets();
-    }
-  }, [permissionResponse]);
-
-  const loadLocalAssets = async () => {
-    const assetPage = await MediaLibrary.getAssetsAsync();
-    // console.log(JSON.stringify(assetPage, null, 2));
-    setLocalAssets(assetPage.assets);
-  };
+  const { assets, loadLocalAssets } = useMedia();
 
   return (
     <>
       <Stack.Screen options={{ title: 'Google Photos' }} />
 
       <FlatList
-        data={localAssets}
-        numColumns={2}
-        // columnWrapperStyle={{ gap: 2 }}
-        // contentContainerStyle={{ gap: 2 }}
+        data={assets}
+        numColumns={4}
         columnWrapperClassName="gap-1"
         contentContainerClassName="gap-1"
+        onEndReached={loadLocalAssets}
+        onEndReachedThreshold={1}
         renderItem={({ item }) => (
-          <Image source={{ uri: item.uri }} style={{ width: '25%', aspectRatio: 1 }} />
+          <Image source={{ uri: item.uri }} style={{ width: '24%', aspectRatio: 1 }} />
         )}
       />
     </>
