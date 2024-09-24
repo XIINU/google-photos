@@ -12,3 +12,5 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 });
+
+//rlP1xbcG4iH7V2MK - supabase pw

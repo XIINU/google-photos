@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform } from 'react-native';
-
-import { ScreenContent } from '~/components/ScreenContent';
+import { Platform, Button } from 'react-native';
+import { supabase } from '~/utils/supabase';
 
 export default function Modal() {
   return (
     <>
-      <ScreenContent path="app/modal.tsx" title="Modal" />
+      <Button title="Sign out" onPress={() => supabase.auth.signOut()} />
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </>
   );
